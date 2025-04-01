@@ -26,5 +26,5 @@ jobs:
       with:
         name: hello-artifact
         path: ./artifacts
-    - name: echo the contents
+    - name: echo the content
       run: cat ./artifacts/hello.txt
