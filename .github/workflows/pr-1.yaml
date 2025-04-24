@@ -1,0 +1,28 @@
+name: Conditional Workflow Example
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Choose an action to perform (build/test/deploy)'
+        required: true
+        default: 'build'
+
+jobs:
+  run_action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Execute user-selected action
+        run: |
+          if [ "${{ github.event.inputs.action }}" == "build" ]; then
+            echo "Building the application!"
+          elif [ "${{ github.event.inputs.action }}" == "test" ]; then
+            echo "Running tests!"
+          elif [ "${{ github.event.inputs.action }}" == "deploy" ]; then
+            echo "Deploying the application!"
+          else
+            echo "No valid action selected!"
+          fi
